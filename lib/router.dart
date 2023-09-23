@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:spajam_2023/pages/chat.dart';
-import 'package:spajam_2023/pages/details.dart';
-import 'package:spajam_2023/pages/top.dart';
+import 'package:kcc_race_client/pages/chat.dart';
+import 'package:kcc_race_client/pages/details.dart';
+import 'package:kcc_race_client/pages/top.dart';
 
 part 'router.g.dart';
 

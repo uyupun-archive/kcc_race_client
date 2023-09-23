@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spajam_2023/router.dart';
+import 'package:kcc_race_client/router.dart';
 
 class Details extends StatelessWidget {
   const Details({super.key, required this.id});

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spajam_2023/router.dart';
+import 'package:kcc_race_client/router.dart';
 
 class Top extends StatelessWidget {
   const Top({super.key});
