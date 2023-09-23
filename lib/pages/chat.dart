@@ -78,77 +78,106 @@ class _State extends State<Chat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: loading
-            ? const Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    '他のユーザーを待っています。。。',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ],
-              )
-            : Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: ListView.builder(
-                      itemBuilder: (context, index) => ListTile(
-                        title: Row(
-                          mainAxisAlignment: socketData[index].id == id
-                              ? MainAxisAlignment.end
-                              : MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('lib/assets/background-white.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: loading
+                ? const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        '他のユーザーを待っています。。。',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  )
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: ListView.builder(
+                          itemBuilder: (context, index) => ListTile(
+                            title: Row(
+                              mainAxisAlignment: socketData[index].id == id
+                                  ? MainAxisAlignment.end
+                                  : MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                if (socketData[index].id != id) ...[
+                                  const Icon(
+                                    Icons.account_circle_outlined,
+                                    size: 24,
+                                    color: Colors.black,
+                                  ),
+                                  const SizedBox(width: 8),
+                                ],
+                                Flexible(
+                                  child: Text(
+                                    socketData[index].message,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      height: 1.5,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                if (socketData[index].id == id) ...[
+                                  const SizedBox(width: 8),
+                                  const Icon(
+                                    Icons.account_circle_outlined,
+                                    size: 24,
+                                    color: Colors.black,
+                                  ),
+                                ],
+                              ],
+                            ),
+                          ),
+                          itemCount: socketData.length,
+                        ),
+                      ),
+                      Form(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            if (socketData[index].id != id) ...[
-                              const Icon(Icons.account_circle_outlined),
-                              const SizedBox(width: 4),
-                            ],
-                            Flexible(
-                              child: Text(
-                                socketData[index].message,
+                            Expanded(
+                              child: TextFormField(
+                                controller: _controller,
+                                decoration: const InputDecoration(
+                                  labelText: 'チクチク言葉を入力',
+                                ),
                               ),
                             ),
-                            if (socketData[index].id == id) ...[
-                              const SizedBox(width: 4),
-                              const Icon(Icons.account_circle_outlined),
-                            ],
+                            const SizedBox(width: 8),
+                            IconButton(
+                              iconSize: 32,
+                              onPressed: _sendMessage,
+                              icon: Icon(
+                                Icons.send,
+                                color: canSend ? Colors.blue : Colors.grey,
+                              ),
+                            )
                           ],
                         ),
                       ),
-                      itemCount: socketData.length,
-                    ),
+                      const SizedBox(height: 24),
+                    ],
                   ),
-                  Form(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Expanded(
-                          child: TextFormField(
-                            controller: _controller,
-                            decoration: const InputDecoration(
-                              labelText: 'チクチク言葉を入力',
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        IconButton(
-                          iconSize: 32,
-                          onPressed: _sendMessage,
-                          icon: Icon(
-                            Icons.send,
-                            color: canSend ? Colors.blue : Colors.grey,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                ],
-              ),
+          ),
+        ],
       ),
     );
   }
