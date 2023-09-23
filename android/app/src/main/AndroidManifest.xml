@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="hackathon_boilerplate_flutter"
+        android:label="spajam_2023"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

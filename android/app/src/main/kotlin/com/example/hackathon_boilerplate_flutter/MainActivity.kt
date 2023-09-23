@@ -1,4 +1,4 @@
-package com.example.hackathon_boilerplate_flutter
+package com.example.spajam_2023
 
 import io.flutter.embedding.android.FlutterActivity
 

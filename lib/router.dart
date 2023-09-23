@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hackathon_boilerplate_flutter/pages/details.dart';
-import 'package:hackathon_boilerplate_flutter/pages/top.dart';
+import 'package:spajam_2023/pages/details.dart';
+import 'package:spajam_2023/pages/top.dart';
 
 part 'router.g.dart';
 

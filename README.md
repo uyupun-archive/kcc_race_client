@@ -1,4 +1,4 @@
-# hackathon_boilerplate_flutter
+# SPAJAM 2023
 
 A new Flutter project.
 
