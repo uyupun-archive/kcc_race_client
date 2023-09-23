@@ -12,6 +12,7 @@ class Chat extends StatefulWidget {
 
 class _State extends State<Chat> {
   final TextEditingController _controller = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
   late IO.Socket _socket;
   final List<SocketData> socketData = [];
   late String id = '';
@@ -39,6 +40,7 @@ class _State extends State<Chat> {
       print('---connect---');
       // idを受け取る
       _socket.on('id', (res) {
+        if (!mounted) return;
         setState(() {
           id = res;
         });
@@ -46,6 +48,7 @@ class _State extends State<Chat> {
 
       // ローディングの状態を受け取る
       _socket.on('loading', (res) {
+        if (!mounted) return;
         setState(() {
           loading = res;
         });
@@ -53,6 +56,7 @@ class _State extends State<Chat> {
 
       // メッセージを受け取る
       _socket.on('message', (res) {
+        if (!mounted) return;
         setState(() {
           socketData.add(SocketData.fromJson(res));
         });
@@ -60,6 +64,7 @@ class _State extends State<Chat> {
 
       // 勝敗を受け取る
       _socket.on('winner', (res) {
+        _focusNode.unfocus();
         _showWinnerDialog(res);
       });
     });
@@ -156,6 +161,8 @@ class _State extends State<Chat> {
                             Expanded(
                               child: TextFormField(
                                 controller: _controller,
+                                focusNode: _focusNode,
+                                autofocus: true,
                                 decoration: const InputDecoration(
                                   labelText: 'チクチク言葉を入力',
                                 ),
@@ -193,6 +200,7 @@ class _State extends State<Chat> {
   }
 
   void _showWinnerDialog(bool winner) {
+    if (!mounted) return;
     showDialog(
       context: context,
       builder: (BuildContext context) {
