@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:spajam_2023/pages/chat.dart';
 import 'package:spajam_2023/pages/details.dart';
 import 'package:spajam_2023/pages/top.dart';
 
@@ -25,6 +26,16 @@ class DetailsRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) => Details(id: id);
+}
+
+@TypedGoRoute<ChatRoute>(
+  path: '/chat',
+)
+class ChatRoute extends GoRouteData {
+  const ChatRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => const Chat();
 }
 
 final GoRouter router = GoRouter(

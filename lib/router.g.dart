@@ -9,6 +9,7 @@ part of 'router.dart';
 List<RouteBase> get $appRoutes => [
       $topRoute,
       $detailsRoute,
+      $chatRoute,
     ];
 
 RouteBase get $topRoute => GoRouteData.$route(
@@ -45,6 +46,28 @@ extension $DetailsRouteExtension on DetailsRoute {
 
   String get location => GoRouteData.$location(
         '/details/${Uri.encodeComponent(id.toString())}',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $chatRoute => GoRouteData.$route(
+      path: '/chat',
+      factory: $ChatRouteExtension._fromState,
+    );
+
+extension $ChatRouteExtension on ChatRoute {
+  static ChatRoute _fromState(GoRouterState state) => const ChatRoute();
+
+  String get location => GoRouteData.$location(
+        '/chat',
       );
 
   void go(BuildContext context) => context.go(location);
