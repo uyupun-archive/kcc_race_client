@@ -37,22 +37,30 @@ class _State extends State<Chat> {
     _socket.connect();
     _socket.onConnect((_) {
       print('---connect---');
+      // idを受け取る
       _socket.on('id', (res) {
         setState(() {
           id = res;
         });
       });
 
+      // ローディングの状態を受け取る
       _socket.on('loading', (res) {
         setState(() {
           loading = res;
         });
       });
 
+      // メッセージを受け取る
       _socket.on('message', (res) {
         setState(() {
           socketData.add(SocketData.fromJson(res));
         });
+      });
+
+      // 勝敗を受け取る
+      _socket.on('winner', (res) {
+        _showWinnerDialog(res);
       });
     });
 
@@ -153,6 +161,34 @@ class _State extends State<Chat> {
       });
       _controller.clear();
     }
+  }
+
+  void _showWinnerDialog(bool winner) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(winner ? 'あなたの勝ち！' : 'あなたの負け！'),
+          content: Text(
+            winner ? '🎉' : '🤯',
+            style: const TextStyle(fontSize: 64),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text(
+                '終了',
+                style: TextStyle(
+                  color: Colors.blue,
+                ),
+              ),
+              onPressed: () {
+                const TopRoute().go(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 
