@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:spajam_2023/router.dart';
 
@@ -16,8 +17,6 @@ class _State extends State<Chat> {
   late String id = '';
   late bool loading = true;
   late bool canSend = false;
-  final String _url =
-      'https://db85-2001-ce8-137-c832-58b0-41a8-cadf-3713.ngrok-free.app';
 
   void textListener() {
     setState(() {
@@ -29,7 +28,7 @@ class _State extends State<Chat> {
   void initState() {
     super.initState();
     _socket = IO.io(
-      _url,
+      dotenv.get('API_URL'),
       IO.OptionBuilder()
           .setTransports(['websocket'])
           .disableAutoConnect()
@@ -39,7 +38,6 @@ class _State extends State<Chat> {
     _socket.onConnect((_) {
       print('---connect---');
       _socket.on('id', (res) {
-        print('id: $res');
         setState(() {
           id = res;
         });
@@ -52,7 +50,6 @@ class _State extends State<Chat> {
       });
 
       _socket.on('message', (res) {
-        print('message: ${SocketData.fromJson(res)}');
         setState(() {
           socketData.add(SocketData.fromJson(res));
         });
