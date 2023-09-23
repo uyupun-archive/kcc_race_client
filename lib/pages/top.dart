@@ -6,14 +6,45 @@ class Top extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double imageWidth = width < 340 ? width : 340;
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Top Page')),
-      body: Center(
-        child: TextButton(
-          onPressed: () => const ChatRoute().go(context),
-          child: const Text('Go to the Chat page'),
+      body: Stack(children: [
+        Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('lib/assets/background.png'),
+              fit: BoxFit.cover,
+            ),
+          ),
         ),
-      ),
+        SafeArea(
+          child: Center(
+            child: Column(
+              children: [
+                const SizedBox(height: 75),
+                Image.asset(
+                  'lib/assets/title.png',
+                  width: imageWidth,
+                  fit: BoxFit.fitWidth,
+                ),
+                const Expanded(child: SizedBox()),
+                GestureDetector(
+                  onTap: () {
+                    const ChatRoute().go(context);
+                  },
+                  child: Image.asset(
+                    'lib/assets/balloon.png',
+                    width: imageWidth,
+                  ),
+                ),
+                const SizedBox(height: 40),
+              ],
+            ),
+          ),
+        ),
+      ]),
     );
   }
 }
