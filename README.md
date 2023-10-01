@@ -1,5 +1,7 @@
 # Kanninbukuro Chikuchiku Chikun Race
 
+<img src="lib/assets/app_icon.png" width="500px">
+
 ## セットアップ
 
 - fvmを導入してください
