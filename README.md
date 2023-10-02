@@ -1,6 +1,6 @@
 # Kanninbukuro Chikuchiku Chikun Race
 
-<img src="lib/assets/app_icon.png" width="500px">
+<img src="lib/assets/app_icon.png" width="200px">
 
 ## セットアップ
 
